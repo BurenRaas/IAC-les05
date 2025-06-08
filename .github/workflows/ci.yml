@@ -51,6 +51,7 @@ jobs:
 
         db_ip=$(jq -r '.databaseserver_ip.value' output.tf)
         ssh-keyscan -H "$db_ip" >> ~/.ssh/known_hosts
+      working-directory: ./opdracht2
 
     - name: Run ansible-playbook
       run: |
