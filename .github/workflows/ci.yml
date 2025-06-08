@@ -23,11 +23,6 @@ jobs:
       run: |
         pip install ansible ansible-lint
 
-    - name: Run ansible-playbook
-      run: |
-        ansible-playbook -i inventory.yml playbook.yml
-      working-directory: ./opdracht2
-
     - name: Terraform init
       run: terraform init
       working-directory: ./opdracht2
@@ -37,4 +32,9 @@ jobs:
 
     - name: Terraform apply --auto-approve
       run: terraform apply --auto-approve
+      working-directory: ./opdracht2
+
+    - name: Run ansible-playbook
+      run: |
+        ansible-playbook -i inventory.yml playbook.yml
       working-directory: ./opdracht2
