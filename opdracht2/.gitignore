@@ -18,8 +18,6 @@ actions-runner/
 .vscode/
 __pycache__/
 *.pyc
-host_vars/
-group_vars/
 ansible.cfg
 *.swp
 
