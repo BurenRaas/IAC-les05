@@ -1,4 +1,4 @@
-name: CI/CD Apply opdracht 3
+name: CI/CD apply opdracht 3
 
 on:
   push:
