@@ -1,4 +1,4 @@
-name: CI/CD
+name: CI/CD opdracht 2
 
 on:
   push:
