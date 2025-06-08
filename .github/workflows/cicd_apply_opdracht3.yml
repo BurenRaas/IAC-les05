@@ -13,7 +13,7 @@ on:
       - '.github/workflows/cicd_opdracht3.yml'
 
 jobs:
-  validate:
+  Validate terraform:
     name: Terraform validate
     runs-on: self-hosted
     steps:
@@ -36,7 +36,7 @@ jobs:
         working-directory: ./opdracht3
 
 
-  terraform:
+  Terraform apply:
     name: Terraform provision
     runs-on: self-hosted
     needs: validate
