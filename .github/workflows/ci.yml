@@ -19,22 +19,22 @@ jobs:
       with:
         python-version: 3.x
 
-    - name: Install Ansible and ansible-lint
-      run: |
+    - #name: Install Ansible and ansible-lint
+      #run: |
         pip install ansible ansible-lint
 
     - name: Run ansible-playbook
       run: |
         ansible-playbook -i inventory.yml playbook.yml
-      working-directory: ~/IAC/les05/opdracht2
+      working-directory: opdracht2
 
     - name: Set up Terraform
       uses: hashicorp/setup-terraform@v3
 
     - name: Terraform init
       run: terraform init
-      working-directory: ~/IAC/les05/opdracht2
+      working-directory: opdracht2
 
     - name: Terraform apply --auto-approve
       run: terraform apply --auto-approve
-      working-directory: ~/IAC/les05/opdracht2
+      working-directory: opdracht2
