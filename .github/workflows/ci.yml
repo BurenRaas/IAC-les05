@@ -37,19 +37,19 @@ jobs:
     - name: Get Terraform output
       id: tf_output
       run: |
-        terraform output -json > tf_output.json
+        terraform output > output.tf
       working-directory: ./opdracht2
 
     - name: Add dynamic IPs to known_hosts
       run: |
         mkdir -p ~/.ssh
-        ips=$(jq -r '.webserver_ips.value[]' tf_output.json)
+        ips=$(jq -r '.webserver_ips.value[]' output.tf)
         for ip in $ips; do
         echo "Scanning $ip"
         ssh-keyscan -H "$ip" >> ~/.ssh/known_hosts
         done
 
-        db_ip=$(jq -r '.databaseserver_ip.value' tf_output.json)
+        db_ip=$(jq -r '.databaseserver_ip.value' output.tf)
         ssh-keyscan -H "$db_ip" >> ~/.ssh/known_hosts
 
     - name: Run ansible-playbook
