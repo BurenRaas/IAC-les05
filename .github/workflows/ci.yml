@@ -30,15 +30,24 @@ jobs:
     - name: Set up Terraform
       uses: hashicorp/setup-terraform@v3
 
+    - name: echo present working direcory
+      run: echo "$PWD"     
+
     - name: Terraform apply --auto-approve
       run: terraform apply --auto-approve
       working-directory: ./opdracht2
+
+    - name: echo present working direcory
+      run: echo "$PWD"     
 
     - name: Get Terraform output
       id: tf_output
       run: |
         terraform output > output.tf
       working-directory: ./opdracht2
+
+    - name: echo present working direcory
+      run: echo "$PWD"      
 
     - name: Add dynamic IPs to known_hosts
       run: |
@@ -53,7 +62,13 @@ jobs:
         ssh-keyscan -H "$db_ip" >> ~/.ssh/known_hosts
       working-directory: ./opdracht2
 
+    - name: echo present working direcory
+      run: echo "$PWD"
+
     - name: Run ansible-playbook
       run: |
         ansible-playbook -i inventory.ini playbook.yml
       working-directory: ./opdracht2
+
+    - name: echo present working direcory
+      run: echo "$PWD"     
