@@ -1,0 +1,11 @@
+- name: Install MySQL server
+  apt:
+    name: mysql-server
+    state: present
+    update_cache: yes
+
+- name: Start python3-pymysql
+  service:
+    name: python3-pymysql
+    state: started
+    enabled: yes

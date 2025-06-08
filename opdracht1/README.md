@@ -1,0 +1,1 @@
+Code uit les 4 opdracht 1-4 hergebruikt
