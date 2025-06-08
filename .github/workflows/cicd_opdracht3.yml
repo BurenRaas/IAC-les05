@@ -40,6 +40,10 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
+      - name: Terraform init
+        run: terraform init
+        working-directory: ./opdracht3
+        
       - name: Terraform apply 
         run: |
           terraform apply --auto-approve
