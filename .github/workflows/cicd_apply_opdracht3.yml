@@ -34,7 +34,7 @@ jobs:
         working-directory: ./opdracht3
 
 
-  Terraform apply:
+  Terraform:
     name: Terraform provision
     runs-on: self-hosted
     needs: validate
