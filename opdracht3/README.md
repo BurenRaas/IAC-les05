@@ -16,6 +16,12 @@ https://docs.github.com/en/actions/writing-workflows/workflow-syntax-for-github-
 terraform validate
 https://developer.hashicorp.com/terraform/cli/commands/validate
 
+terraform fmt
+https://developer.hashicorp.com/terraform/cli/commands/fmt
+
+Configuring a workflow to run manually
+https://docs.github.com/en/actions/managing-workflow-runs-and-deployments/managing-workflow-runs/manually-running-a-workflow#configuring-a-workflow-to-run-manually
+
 AI prompts:
 
 Maak deze readme.md af

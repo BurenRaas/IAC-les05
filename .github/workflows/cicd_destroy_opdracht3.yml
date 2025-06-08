@@ -1,14 +1,7 @@
-name: destroy opdracht 3
+name: CI/CD destroy opdracht 3
 
 on:
-  push:
-    branches: [opdracht3]
-    paths:
-      - 'opdracht3/**/*.tf'
-  pull_request:
-    branches: [main]
-    paths:
-      - 'opdracht3/**/*.tf'
+  workflow_dispatch:
 
 jobs:
   destroy:
