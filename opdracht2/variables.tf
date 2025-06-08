@@ -14,8 +14,8 @@ variable "esxi_username" {
   default = "root"
 }
 
-variable "esxi_password" { s1190828!
-}
+variable "esxi_password" { s1190828! }
+
 
 variable "vmIP" {
   default = "192.168.20.14/24"
