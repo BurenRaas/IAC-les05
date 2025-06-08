@@ -15,8 +15,8 @@ variable "esxi_username" {
 }
 
 variable "esxi_password" {
-  default = "s1190828!"
-  sensitive   = true
+  default   = "s1190828!"
+  sensitive = true
 }
 
 
