@@ -42,17 +42,53 @@ Het Ansible Playbook uit opdracht 1 van les 5 wordt gebruikt. In het kort:
   apache2 op alle hosts in de groep [webserver]
   mysql-server op hosts in [databaseserver]
 
-### CI/CD Pipeline (ci.yml) uitleg
+### CI/CD Pipeline uitleg
 
-De ci.yml workflowbestand is geplaatst in .github/workflows/ci.yml en voert de volgende stappen uit:
+De workflow is gedefinieerd in `.github/workflows/ci.yml` en bestaat uit drie opeenvolgende jobs: `lint`, `terraform`, en `deploy`. De workflow wordt automatisch uitgevoerd bij een `push` of `pull request` naar de `main` branch.
 
-- Trigger: de workflow start automatisch bij een push naar de main branch.
-- Checkout: haalt de nieuwste versie van de repository op.
-- Terraform Init & Apply: initialiseert Terraform en bouwt de vms op.
-- Ansible Playbook: voert het ansible-playbook uit dat apache2 (op de webserver) en mysql (op de databaseserver) installeert.
+#### 🔄 Workflow-triggers
+```yaml
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+```
 
-Er is een lokale GitHub Runner gebruikt zodat de workflow draait op een eigen systeem (ontwikkel-VM in Skylab), in plaats van op GitHub’s cloudinfrastructuur.
+#### Job 1 – Lint: Ansible codecontrole
 
+Deze stap valideert de structuur van het Ansible-playbook met `ansible-lint`. Fouten in de lintcheck worden **gelogd maar onderbreken de workflow niet**, dankzij `continue-on-error: true`.
+
+Acties in deze job:
+- Checkt de laatste code uit met `actions/checkout@v3`
+- Installeert Python en Ansible via `actions/setup-python@v5`
+- Installeert `ansible-lint`
+- Voert `ansible-lint playbook.yml` uit in de map `./opdracht2`. Ansible lint controleert de syntanx en best practices van de code.
+
+#### Job 2 – Terraform: Provisioning
+
+Deze job draait **pas na de lint-check** (`needs: lint`). Hierin wordt de infrastructuur aangemaakt met Terraform. 
+
+Acties in deze job:
+- Initialiseert Terraform (`terraform init`)
+- Voert de configuratie uit (`terraform apply --auto-approve`)
+- Terraform genereert automatisch `inventory.ini` en voegt IP-adressen toe aan `~/.ssh/known_hosts` via een `null_resource` met `local-exec`
+
+De configuratie draait binnen de `./opdracht2` directory. Want in deze map staan de bestanden voor deze opdracht.
+
+#### Job 3 – Deploy: Ansible-configuratie
+
+De derde job draait **na succesvolle provisioning** (`needs: terraform`). In deze stap wordt het Ansible-playbook uitgevoerd dat software installeert op de nieuw aangemaakte servers.
+
+Acties in deze job:
+- Checkt opnieuw de code uit
+- Voert `ansible-playbook -i inventory.ini playbook.yml` uit
+
+Het playbook:
+- Installeert `apache2` op hosts in de groep `[webserver]`
+- Installeert `mysql-server` op hosts in `[databaseserver]`
+
+Deze job draait op een self-hosted GitHub Runner die is geïnstalleerd op een ontwikkel-VM binnen Skylab, zodat lokale communicatie met de virtuele machines mogelijk is.
 
 ## Bronnen
 Code gebruikt uit opdracht 1 van deze les.

@@ -50,6 +50,12 @@ jobs:
           terraform apply --auto-approve
         working-directory: ./opdracht2
 
+      - name: Terraform apply 
+        run: |
+          cat inventory.ini
+        working-directory: ./opdracht2
+
+
   deploy:
     name: Run Ansible playbook
     runs-on: self-hosted
