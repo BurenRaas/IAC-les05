@@ -1,4 +1,4 @@
-name: CI
+name: CI/CD
 
 on:
   push:
@@ -7,37 +7,57 @@ on:
     branches: [main]
 
 jobs:
-  check:
+  lint:
+    name: Lint Ansible code
     runs-on: self-hosted
-
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-    - name: Set up Python for Ansible lint
-      uses: actions/setup-python@v5
-      with:
-        python-version: 3.x
+      - name: Set up Python for Ansible
+        uses: actions/setup-python@v5
+        with:
+          python-version: 3.x
 
-    - name: Install Ansible and ansible-lint
-      run: |
-        pip install ansible ansible-lint
+      - name: Install Ansible and ansible-lint
+        run: |
+          pip install ansible ansible-lint
 
-    - name: echo present working direcory
-      run: echo "$PWD"     
+      - name: Run ansible-lint
+        run: |
+          ansible-lint playbook.yml
+        working-directory: ./opdracht2
 
-    - name: Terraform init
-      run: terraform init
-      working-directory: ./opdracht2
+  terraform:
+    name: Terraform provision
+    runs-on: self-hosted
+    needs: lint
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-    - name: Set up Terraform
-      uses: hashicorp/setup-terraform@v3
+      - name: Set up Terraform
+        uses: hashicorp/setup-terraform@v3
 
-    - name: Terraform apply --auto-approve
-      run: terraform apply --auto-approve
-      working-directory: ./opdracht2
+      - name: Terraform init
+        run: |
+          terraform init
+        working-directory: ./opdracht2
 
-    - name: Run ansible-playbook
-      run: |
-        ansible-playbook -i inventory.ini playbook.yml
-      working-directory: ./opdracht2
+      - name: Terraform apply 
+        run: |
+          terraform apply --auto-approve
+        working-directory: ./opdracht2
+
+  deploy:
+    name: Run Ansible playbook
+    runs-on: self-hosted
+    needs: terraform
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Run ansible-playbook
+        run: |
+          ansible-playbook -i inventory.ini playbook.yml
+        working-directory: ./opdracht2
