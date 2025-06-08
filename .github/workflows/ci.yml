@@ -36,5 +36,5 @@ jobs:
 
     - name: Run ansible-playbook
       run: |
-        ansible-playbook -i inventory.yml playbook.yml
+        ansible-playbook -i inventory.ini playbook.yml
       working-directory: ./opdracht2
