@@ -8,7 +8,7 @@ on:
 
 jobs:
   check:
-    runs-on: s1190828-ubuntu
+    runs-on: self-hosted
 
     steps:
     - name: Checkout repository
