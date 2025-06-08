@@ -50,10 +50,15 @@ jobs:
           terraform apply --auto-approve
         working-directory: ./opdracht2
 
-      - name: Terraform apply 
+      - name: cat inventory.ini ter controle
         run: |
-          cat inventory.ini
+          cat inventory.ini && echo "$PWD"
         working-directory: ./opdracht2
+
+      - name: cat inventory.ini ter controle
+        run: |
+          echo "$PWD"
+        working-directory: 
 
 
   deploy:
@@ -63,6 +68,11 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
+
+      - name: cat inventory.ini ter controle
+        run: |
+          echo "$PWD"
+        working-directory: 
 
       - name: Run ansible-playbook
         run: |
