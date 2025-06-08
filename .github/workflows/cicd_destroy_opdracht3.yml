@@ -1,4 +1,4 @@
-name: ci/cd destroy opdracht 3
+name: destroy opdracht 3
 
 on:
   workflow_dispatch:  
