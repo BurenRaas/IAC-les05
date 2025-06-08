@@ -19,6 +19,6 @@ jobs:
         run: terraform init
         working-directory: ./opdracht3
 
-      - name: Terraform destroy
+      - name: terraform destroy
         run: terraform destroy --auto-approve
         working-directory: ./opdracht3
