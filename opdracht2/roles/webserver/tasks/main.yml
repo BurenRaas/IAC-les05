@@ -1,0 +1,9 @@
+- name: Install Apache
+  command: apt-get install -y apache2
+  changed_when: true
+  notify: restart apache
+
+- name: webpagina
+  copy:
+    content: "<h1>IAC week 5 opdracht 1</h1>"
+    dest: /var/www/html/index.html

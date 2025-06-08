@@ -1,0 +1,20 @@
+# Terraform state
+*.tfstate
+*.tfstate.backup
+
+# Sensitive input
+terraform.tfvars
+*.pem
+*.key
+*.creds
+*.secrets
+
+# Terraform local cache
+.terraform/
+
+# Editor/OS junk
+.DS_Store
+*.swp
+*.swo
+*.bak
+
