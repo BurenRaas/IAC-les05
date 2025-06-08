@@ -58,14 +58,14 @@ resource "esxi_guest" "databaseserver" {
 resource "null_resource" "generate_ansible_inventory" {
   provisioner "local-exec" {
     command = <<EOT
-echo "[webserver]" > inventory.ini
+echo "[webserver]" > inventory.yml
 %{ for ip in esxi_guest.webserver[*].ip_address ~}
-echo "${ip} ansible_user=student ansible_ssh_private_key_file=~/.ssh/iac" >> inventory.ini
+echo "${ip} ansible_user=student ansible_ssh_private_key_file=~/.ssh/iac" >> inventory.yml
 %{ endfor ~}
 
-echo "" >> inventory.ini
-echo "[databaseserver]" >> inventory.ini
-echo "${esxi_guest.databaseserver.ip_address} ansible_user=student ansible_ssh_private_key_file=~/.ssh/iac" >> inventory.ini
+echo "" >> inventory.yml
+echo "[databaseserver]" >> inventory.yml
+echo "${esxi_guest.databaseserver.ip_address} ansible_user=student ansible_ssh_private_key_file=~/.ssh/iac" >> inventory.yml
 EOT
   }
 
