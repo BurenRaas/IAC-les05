@@ -19,8 +19,8 @@ jobs:
       with:
         python-version: 3.x
 
-    - #name: Install Ansible and ansible-lint
-      #run: |
+    - name: Install Ansible and ansible-lint
+      run: |
         pip install ansible ansible-lint
 
     - name: Run ansible-playbook
