@@ -28,6 +28,10 @@ jobs:
         ansible-playbook -i inventory.yml playbook.yml
       working-directory: ./opdracht2
 
+    - name: Terraform init
+      run: terraform init
+      working-directory: ./opdracht2
+
     - name: Set up Terraform
       uses: hashicorp/setup-terraform@v3
 
