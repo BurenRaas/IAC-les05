@@ -31,8 +31,8 @@ jobs:
         run: terraform validate
         working-directory: ./opdracht3
 
-      - name: Terraform validate
-        run: terraform fmt
+      - name: Terraform fmt
+        run: terraform fmt -check
         working-directory: ./opdracht3
 
 
