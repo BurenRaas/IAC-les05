@@ -54,18 +54,20 @@ resource "esxi_guest" "databaseserver" {
 }
 
 
-#Generate Ansible invetory file (IP, user & SSH key) voor webservers en databaseserver
-resource "null_resource" "generate_ansible_inventory" {
+#Generate Ansible inventoryfile (IP, user & SSH key) voor webservers en databaseserver en voegt ips toe aan known_hosts voor SSH toegang.
+resource "null_resource" "generate_inventory_and_known_hosts" {
   provisioner "local-exec" {
     command = <<EOT
 echo "[webserver]" > inventory.ini
 %{ for ip in esxi_guest.webserver[*].ip_address ~}
 echo "${ip} ansible_user=student ansible_ssh_private_key_file=~/.ssh/iac" >> inventory.ini
+ssh-keyscan -H ${ip} >> ~/.ssh/known_hosts
 %{ endfor ~}
 
 echo "" >> inventory.ini
 echo "[databaseserver]" >> inventory.ini
 echo "${esxi_guest.databaseserver.ip_address} ansible_user=student ansible_ssh_private_key_file=~/.ssh/iac" >> inventory.ini
+ssh-keyscan -H ${esxi_guest.databaseserver.ip_address} >> ~/.ssh/known_hosts
 EOT
   }
 
