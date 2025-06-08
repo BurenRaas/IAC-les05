@@ -4,12 +4,12 @@ on:
   push:
     branches: [opdracht3]
     paths:
-      - 'opdracht3/**'
+      - 'opdracht3/**/*.tf'
       - '.github/workflows/cicd_opdracht3.yml'
   pull_request:
     branches: [main]
     paths:
-      - 'opdracht3/**'
+      - 'opdracht3/**/*.tf'
       - '.github/workflows/cicd_opdracht3.yml'
 
 jobs:
@@ -31,6 +31,10 @@ jobs:
         run: terraform validate
         working-directory: ./opdracht3
 
+      - name: Terraform validate
+        run: terraform fmt
+        working-directory: ./opdracht3
+
 
   terraform:
     name: Terraform provision
@@ -43,7 +47,7 @@ jobs:
       - name: Terraform init
         run: terraform init
         working-directory: ./opdracht3
-        
+
       - name: Terraform apply 
         run: |
           terraform apply --auto-approve
