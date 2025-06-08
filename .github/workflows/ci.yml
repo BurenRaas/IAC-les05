@@ -30,6 +30,7 @@ jobs:
 
     - name: Set up Terraform
       uses: hashicorp/setup-terraform@v3
+      working-directory: opdracht2
 
     - name: Terraform apply --auto-approve
       run: terraform apply --auto-approve
