@@ -1,0 +1,47 @@
+name: CI/CD
+
+on:
+  push:
+    branches: [opdracht3]
+    paths:
+      - 'opdracht3/**'
+      - '.github/workflows/cicd_opdracht3.yml'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'opdracht3/**'
+      - '.github/workflows/cicd_opdracht3.yml'
+
+jobs:
+  validate:
+    name: Terraform validate
+    runs-on: self-hosted
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Terraform
+        uses: hashicorp/setup-terraform@v3
+
+      - name: Terraform init
+        run: terraform init
+        working-directory: ./opdracht3
+
+      - name: Terraform validate
+        run: terraform validate
+        working-directory: ./opdracht3
+
+
+  terraform:
+    name: Terraform provision
+    runs-on: self-hosted
+    needs: validate
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Terraform apply 
+        run: |
+          terraform apply --auto-approve
+        working-directory: ./opdracht3
+
