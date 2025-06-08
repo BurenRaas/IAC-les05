@@ -1,20 +1,48 @@
-# Terraform state
+# GitHub workflow artifacts
+.github/*.log
+.github/*.bak
+
+# GitHub Runner (lokale runner bestanden)
+_runner/
+actions-runner/
+.env
+*.env
+*.sh
+*.bat
+*.cmd
+
+# Ansible
+*.retry
+*.log
+*.vault_pass
+.vscode/
+__pycache__/
+*.pyc
+inventory.ini
+host_vars/
+group_vars/
+ansible.cfg
+*.swp
+
+# Terraform
 *.tfstate
-*.tfstate.backup
-
-# Sensitive input
+*.tfstate.*
+*.terraform/
+.terraform.lock.hcl
+crash.log
+override.tf
+override.tf.json
 terraform.tfvars
-*.pem
-*.key
-*.creds
-*.secrets
+terraform.tfvars.json
 
-# Terraform local cache
-.terraform/
-
-# Editor/OS junk
+# OS/Editor files
 .DS_Store
+Thumbs.db
 *.swp
 *.swo
 *.bak
+*.tmp
 
+# Python virtual environments (als je python gebruikt voor testing/scripting)
+.venv/
+venv/
