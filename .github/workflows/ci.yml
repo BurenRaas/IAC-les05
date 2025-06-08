@@ -26,15 +26,15 @@ jobs:
     - name: Run ansible-playbook
       run: |
         ansible-playbook -i inventory.yml playbook.yml
-      working-directory: opdracht2
+      working-directory: ~/IAC/les05/opdracht2
 
     - name: Set up Terraform
       uses: hashicorp/setup-terraform@v3
 
     - name: Terraform init
       run: terraform init
-      working-directory: opdracht2
+      working-directory: ~/IAC/les05/opdracht2
 
-    - name: Terraform validate
-      run: terraform validate
-      working-directory: opdracht2
+    - name: Terraform apply --auto-approve
+      run: terraform apply --auto-approve
+      working-directory: ~/IAC/les05/opdracht2
