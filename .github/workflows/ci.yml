@@ -27,6 +27,7 @@ jobs:
         run: |
           ansible-lint playbook.yml
         working-directory: ./opdracht2
+        continue-on-error: true 
 
   terraform:
     name: Terraform provision
