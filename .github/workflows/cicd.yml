@@ -55,11 +55,9 @@ jobs:
           cat inventory.ini && echo "$PWD"
         working-directory: ./opdracht2
 
-      - name: cat inventory.ini ter controle
+      - name: echo pwd ter controle
         run: |
           echo "$PWD"
-        working-directory: 
-
 
   deploy:
     name: Run Ansible playbook
@@ -69,10 +67,9 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: cat inventory.ini ter controle
+      - name: echo pwd ter controle
         run: |
           echo "$PWD"
-        working-directory: 
 
       - name: Run ansible-playbook
         run: |
